@@ -1,56 +1,62 @@
+$primary-color: #4beb0c;
+$secondary-color: #eee;
+$background-color: #fff;
+$border-color: #ddd;
+$input-background-color: #f3f3f3;
+
 .todo {
   display: flex;
   padding: 10px 15px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
+  background-color: $background-color;
+  border-bottom: 1px solid $border-color;
 
-  .todo:nth-child(even) {
-    background-color: #eee;
+  &:nth-child(even) {
+    background-color: $secondary-color;
   }
 
-  .todo:last-of-type {
+  &:last-of-type {
     border-bottom: 0;
   }
 
-  .id {
+  & .id {
     flex: 1 1 50px;
   }
 
-  .content {
+  & .content {
     flex: 1 1 100%;
   }
 
-  .todo.done {
+  &.done {
     .content {
       text-decoration: line-through;
     }
   }
+}
 
-  .todo-input {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    appearance: none;
-    border: none;
-    background-color: #f3f3f3;
-    margin-top: 15px;
-    font-size: 20px;
-    outline: none;
-  }
+.todo-input {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  appearance: none;
+  border: none;
+  background-color: $input-background-color;
+  margin-top: 15px;
+  font-size: 20px;
+  outline: none;
+}
 
-  .todo-submit {
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-    background-color: #4beb0c;
-    color: #fff;
-    margin: 15px auto;
-    padding: 10px 15px;
-    font-size: 18px;
-    font-weight: 700;
-  }
+.todo-submit {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  background-color: $primary-color;
+  color: #fff;
+  margin: 15px auto;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: 700;
 }
