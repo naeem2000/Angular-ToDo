@@ -1,4 +1,6 @@
 export class ToDo {
+  id!: number;
   content!: string;
   completed!: boolean;
+  time!: string;
 }
