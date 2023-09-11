@@ -18,6 +18,10 @@ export class TodoComponent implements OnInit {
     if (storedTodos) {
       this.todos = JSON.parse(storedTodos);
     }
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, '0');
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    this.inputTime = `${hours}:${minutes}`;
   }
 
   addTodo() {
@@ -31,7 +35,10 @@ export class TodoComponent implements OnInit {
         time: this.inputTime,
       });
       this.inputTodo = '';
-      this.inputTime = '';
+      const currentTime = new Date();
+      const hours = currentTime.getHours().toString().padStart(2, '0');
+      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+      this.inputTime = `${hours}:${minutes}`;
       this.saveTodos();
     }
   }

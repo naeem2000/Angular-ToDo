@@ -1,32 +1,41 @@
 <div class="app">
   <form (submit)="addTodo()">
-    <input
-      type="text"
-      name="inputTodo"
-      placeholder="Enter todo.."
-      class="todo-input"
-      [(ngModel)]="inputTodo"
-    />
-    <input
-      [(ngModel)]="inputTime"
-      type="time"
-      id="time-input"
-      name="input"
-      placeholder="HH:mm:ss"
-      min="00:00:00"
-      max="24:00:00"
-      required
-    />
-    <input type="submit" value="Add Todo" class="todo-submit" />
+    <div class="fields">
+      <input
+        [(ngModel)]="inputTodo"
+        type="text"
+        name="input-Todo"
+        id="todo-input"
+        placeholder="Enter todo.."
+        class="todo-input"
+      />
+      <input
+        [(ngModel)]="inputTime"
+        type="time"
+        id="time-input"
+        name="time-input"
+        min="00:00:00"
+        max="24:00:00"
+        required
+      />
+    </div>
+    <div class="submit">
+      <input type="submit" value="Add Todo" class="todo-submit" />
+    </div>
   </form>
-  <div
-    *ngFor="let todo of todos; let i = index"
-    class="todo {{ todo.completed ? 'done' : '' }}"
-  >
-    <div class="id">{{ i }}</div>
-    <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
-    <div>{{ todo.time }}</div>
-    <button class="delete" (click)="deleteTodo(i)">Remove</button>
+  <div class="parent">
+    <div
+      (click)="toggleDone(i)"
+      *ngFor="let todo of todos; let i = index"
+      class="todo {{ todo.completed ? 'done' : '' }}"
+    >
+      <div class="id">{{ i + 1 }}</div>
+      <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
+      <div>{{ todo.time }}</div>
+      <button class="delete" (click)="deleteTodo(i)">Remove</button>
+    </div>
+    <div *ngIf="todos.length === 0" class="nothing">
+      Nothing on your agenda...
+    </div>
   </div>
-  <div *ngIf="todos.length === 0" class="nothing">nothing added yet...</div>
 </div>
