@@ -1,4 +1,4 @@
-<div class="todos">
+<div class="app">
   <form (submit)="addTodo()">
     <input
       type="text"
@@ -6,6 +6,16 @@
       placeholder="Enter todo.."
       class="todo-input"
       [(ngModel)]="inputTodo"
+    />
+    <input
+      [(ngModel)]="inputTime"
+      type="time"
+      id="time-input"
+      name="input"
+      placeholder="HH:mm:ss"
+      min="00:00:00"
+      max="24:00:00"
+      required
     />
     <input type="submit" value="Add Todo" class="todo-submit" />
   </form>
@@ -15,6 +25,7 @@
   >
     <div class="id">{{ i }}</div>
     <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
+    <div>{{ todo.time }}</div>
     <button class="delete" (click)="deleteTodo(i)">Remove</button>
   </div>
   <div *ngIf="todos.length === 0" class="nothing">nothing added yet...</div>

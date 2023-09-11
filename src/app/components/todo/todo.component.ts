@@ -9,6 +9,7 @@ import { ToDo } from 'src/app/types/todo';
 export class TodoComponent implements OnInit {
   todos!: ToDo[];
   inputTodo: string = '';
+  inputTime: string = '';
 
   constructor() {}
 
@@ -27,8 +28,10 @@ export class TodoComponent implements OnInit {
         id: this.todos.length + 1,
         content: this.inputTodo,
         completed: false,
+        time: this.inputTime,
       });
       this.inputTodo = '';
+      this.inputTime = '';
       this.saveTodos();
     }
   }
