@@ -6,18 +6,30 @@
         type="text"
         name="input-Todo"
         id="todo-input"
-        placeholder="Enter todo.."
+        placeholder="Enter todo..."
         class="todo-input"
       />
-      <input
-        [(ngModel)]="inputTime"
-        type="time"
-        id="time-input"
-        name="time-input"
-        min="00:00:00"
-        max="24:00:00"
-        required
-      />
+      <div class="input-side">
+        <input
+          [(ngModel)]="inputTimeFrom"
+          type="time"
+          class="time-input"
+          name="time-input"
+          min="00:00:00"
+          max="24:00:00"
+          required
+        />
+        <img src="../../../assets/right.svg" alt="Arrow Right Time" />
+        <input
+          [(ngModel)]="inputTimeTo"
+          type="time"
+          class="time-input"
+          name="time-input"
+          min="00:00:00"
+          max="24:00:00"
+          required
+        />
+      </div>
     </div>
     <div class="submit">
       <input type="submit" value="Add Todo" class="todo-submit" />
@@ -31,7 +43,11 @@
     >
       <div class="id">{{ i + 1 }}</div>
       <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
-      <div>{{ todo.time }}</div>
+      <div class="times">
+        {{ todo.timeFrom }}
+        <img src="../../../assets/right.svg" alt="Arrow Right Time" />
+        {{ todo.timeTo }}
+      </div>
       <button class="delete" (click)="deleteTodo(i)">Remove</button>
     </div>
     <div *ngIf="todos.length === 0" class="nothing">

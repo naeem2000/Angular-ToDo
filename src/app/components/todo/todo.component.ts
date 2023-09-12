@@ -9,7 +9,8 @@ import { ToDo } from 'src/app/types/todo';
 export class TodoComponent implements OnInit {
   todos!: ToDo[];
   inputTodo: string = '';
-  inputTime: string = '';
+  inputTimeFrom: string = '';
+  inputTimeTo: string = '';
 
   constructor() {}
 
@@ -21,7 +22,8 @@ export class TodoComponent implements OnInit {
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
     const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-    this.inputTime = `${hours}:${minutes}`;
+    this.inputTimeFrom = `${hours}:${minutes}`;
+    this.inputTimeTo = `${hours}:${minutes}`;
   }
 
   addTodo() {
@@ -32,13 +34,15 @@ export class TodoComponent implements OnInit {
         id: this.todos.length + 1,
         content: this.inputTodo,
         completed: false,
-        time: this.inputTime,
+        timeFrom: this.inputTimeFrom,
+        timeTo: this.inputTimeTo,
       });
       this.inputTodo = '';
       const currentTime = new Date();
       const hours = currentTime.getHours().toString().padStart(2, '0');
       const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-      this.inputTime = `${hours}:${minutes}`;
+      this.inputTimeFrom = `${hours}:${minutes}`;
+      this.inputTimeTo = `${hours}:${minutes}`;
       this.saveTodos();
     }
   }
