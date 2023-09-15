@@ -1,4 +1,4 @@
-<div class="app">
+<div data-aos="fade-up" class="app">
   <form (submit)="addTodo()">
     <div class="fields">
       <input
@@ -33,6 +33,9 @@
     </div>
     <div class="submit">
       <input type="submit" value="Add Todo" class="todo-submit" />
+      <button (click)="deleteAll()" value="Add Todo" class="todo-submit">
+        remove all
+      </button>
     </div>
   </form>
   <div class="parent">

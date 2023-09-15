@@ -18,6 +18,8 @@ export class TodoComponent implements OnInit {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
       this.todos = JSON.parse(storedTodos);
+    } else {
+      this.todos = [];
     }
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
@@ -62,5 +64,10 @@ export class TodoComponent implements OnInit {
 
   saveTodos(): void {
     localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
+  deleteAll() {
+    localStorage.removeItem('todos');
+    this.todos = [];
   }
 }
