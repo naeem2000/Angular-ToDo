@@ -11,6 +11,7 @@ export class TodoComponent implements OnInit {
   inputTodo: string = '';
   inputTimeFrom: string = '';
   inputTimeTo: string = '';
+  error: boolean = false;
 
   constructor() {}
 
@@ -30,8 +31,9 @@ export class TodoComponent implements OnInit {
 
   addTodo() {
     if (this.inputTodo === '') {
-      console.log('naah');
+      this.error = true;
     } else {
+      this.error = false;
       this.todos.push({
         id: this.todos.length + 1,
         content: this.inputTodo,

@@ -1,14 +1,19 @@
 <div data-aos="fade-up" class="app">
   <form (submit)="addTodo()">
     <div class="fields">
-      <input
-        [(ngModel)]="inputTodo"
-        type="text"
-        name="input-Todo"
-        id="todo-input"
-        placeholder="Enter todo..."
-        class="todo-input"
-      />
+      <div class="todo-input-container">
+        <input
+          [(ngModel)]="inputTodo"
+          type="text"
+          name="input-Todo"
+          id="todo-input"
+          placeholder="Enter todo..."
+          class="todo-input {{ this.error ? 'errorInput' : '' }}"
+        />
+        <p class="error-text" *ngIf="this.error">
+          Todo has to have a description...
+        </p>
+      </div>
       <div class="input-side">
         <input
           [(ngModel)]="inputTimeFrom"
@@ -19,7 +24,7 @@
           max="24:00:00"
           required
         />
-        <img src="../../../assets/right.svg" alt="Arrow Right Time" />
+        <img src="../../../assets/images/right.svg" alt="Arrow Right Time" />
         <input
           [(ngModel)]="inputTimeTo"
           type="time"
@@ -48,7 +53,7 @@
       <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
       <div class="times">
         {{ todo.timeFrom }}
-        <img src="../../../assets/right.svg" alt="Arrow Right Time" />
+        <img src="../../../assets/images/right.svg" alt="Arrow Right Time" />
         {{ todo.timeTo }}
       </div>
       <button class="delete" (click)="deleteTodo(i)">Remove</button>
