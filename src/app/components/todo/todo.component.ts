@@ -9,37 +9,52 @@ import { ToDo } from 'src/app/types/todo';
 export class TodoComponent implements OnInit {
   todos!: ToDo[];
   inputTodo: string = '';
-  inputTime: string = '';
+  inputTimeFrom: string = '';
+  inputTimeTo: string = '';
+  confirmDeleteAll: boolean = false;
+  error: boolean = false;
 
   constructor() {}
+
+  getTime() {
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, '0');
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    return { hours, minutes };
+  }
 
   ngOnInit(): void {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
       this.todos = JSON.parse(storedTodos);
+    } else {
+      this.todos = [];
     }
-    const currentTime = new Date();
-    const hours = currentTime.getHours().toString().padStart(2, '0');
-    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-    this.inputTime = `${hours}:${minutes}`;
+    const { hours, minutes } = this.getTime();
+    this.inputTimeFrom = `${hours}:${minutes}`;
+    this.inputTimeTo = `${hours}:${minutes}`;
   }
 
   addTodo() {
     if (this.inputTodo === '') {
-      console.log('naah');
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 2000);
     } else {
+      this.error = false;
       this.todos.push({
         id: this.todos.length + 1,
         content: this.inputTodo,
         completed: false,
-        time: this.inputTime,
+        timeFrom: this.inputTimeFrom,
+        timeTo: this.inputTimeTo,
       });
       this.inputTodo = '';
-      const currentTime = new Date();
-      const hours = currentTime.getHours().toString().padStart(2, '0');
-      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-      this.inputTime = `${hours}:${minutes}`;
-      this.saveTodos();
+      const { hours, minutes } = this.getTime();
+      this.inputTimeFrom = `${hours}:${minutes}`;
+      this.inputTimeTo = `${hours}:${minutes}`;
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     }
   }
 
@@ -48,15 +63,25 @@ export class TodoComponent implements OnInit {
       if (i == id) v.completed = !v.completed;
       return v;
     });
-    this.saveTodos();
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   deleteTodo(id: number) {
     this.todos = this.todos.filter((v, i) => i !== id);
-    this.saveTodos();
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
-  saveTodos(): void {
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+  deleteAll() {
+    if (this.todos.length > 0) {
+      this.confirmDeleteAll = true;
+    } else {
+      null;
+    }
+  }
+
+  deleteEverything() {
+    this.confirmDeleteAll = false;
+    localStorage.removeItem('todos');
+    this.todos = [];
   }
 }

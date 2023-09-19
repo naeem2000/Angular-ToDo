@@ -1,26 +1,54 @@
-<div class="app">
+<div data-aos="fade-up" class="app">
   <form (submit)="addTodo()">
     <div class="fields">
-      <input
-        [(ngModel)]="inputTodo"
-        type="text"
-        name="input-Todo"
-        id="todo-input"
-        placeholder="Enter todo.."
-        class="todo-input"
-      />
-      <input
-        [(ngModel)]="inputTime"
-        type="time"
-        id="time-input"
-        name="time-input"
-        min="00:00:00"
-        max="24:00:00"
-        required
-      />
+      <div class="todo-input-container">
+        <input
+          [(ngModel)]="inputTodo"
+          type="text"
+          name="input-Todo"
+          id="todo-input"
+          placeholder="Enter todo..."
+          class="todo-input {{ this.error ? 'errorInput' : '' }}"
+        />
+        <p class="error-text" *ngIf="this.error">
+          Todo has to have a description...
+        </p>
+      </div>
+      <div class="input-side">
+        <input
+          [(ngModel)]="inputTimeFrom"
+          type="time"
+          class="time-input"
+          name="time-input"
+          min="00:00:00"
+          max="24:00:00"
+          required
+        />
+        <img src="../../../assets/images/right.svg" alt="Arrow Right Time" />
+        <input
+          [(ngModel)]="inputTimeTo"
+          type="time"
+          class="time-input"
+          name="time-input"
+          min="00:00:00"
+          max="24:00:00"
+          required
+        />
+      </div>
+    </div>
+    <div *ngIf="this.confirmDeleteAll">
+      <p>delete all ?</p>
+      <input type="button" value="yes" (click)="deleteEverything()" />
+      <input type="button" value="no" (click)="this.confirmDeleteAll = false" />
     </div>
     <div class="submit">
       <input type="submit" value="Add Todo" class="todo-submit" />
+      <input
+        type="button"
+        (click)="deleteAll()"
+        value="delete all"
+        class="todo-submit"
+      />
     </div>
   </form>
   <div class="parent">
@@ -31,7 +59,11 @@
     >
       <div class="id">{{ i + 1 }}</div>
       <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
-      <div>{{ todo.time }}</div>
+      <div class="times">
+        {{ todo.timeFrom }}
+        <img src="../../../assets/images/right.svg" alt="Arrow Right Time" />
+        {{ todo.timeTo }}
+      </div>
       <button class="delete" (click)="deleteTodo(i)">Remove</button>
     </div>
     <div *ngIf="todos.length === 0" class="nothing">
