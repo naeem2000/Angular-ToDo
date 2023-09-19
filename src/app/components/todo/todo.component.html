@@ -36,11 +36,19 @@
         />
       </div>
     </div>
+    <div *ngIf="this.confirmDeleteAll">
+      <p>delete all ?</p>
+      <input type="button" value="yes" (click)="deleteEverything()" />
+      <input type="button" value="no" (click)="this.confirmDeleteAll = false" />
+    </div>
     <div class="submit">
       <input type="submit" value="Add Todo" class="todo-submit" />
-      <button (click)="deleteAll()" value="Add Todo" class="todo-submit">
-        remove all
-      </button>
+      <input
+        type="button"
+        (click)="deleteAll()"
+        value="delete all"
+        class="todo-submit"
+      />
     </div>
   </form>
   <div class="parent">

@@ -11,9 +11,17 @@ export class TodoComponent implements OnInit {
   inputTodo: string = '';
   inputTimeFrom: string = '';
   inputTimeTo: string = '';
+  confirmDeleteAll: boolean = false;
   error: boolean = false;
 
   constructor() {}
+
+  getTime() {
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, '0');
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    return { hours, minutes };
+  }
 
   ngOnInit(): void {
     const storedTodos = localStorage.getItem('todos');
@@ -22,9 +30,7 @@ export class TodoComponent implements OnInit {
     } else {
       this.todos = [];
     }
-    const currentTime = new Date();
-    const hours = currentTime.getHours().toString().padStart(2, '0');
-    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    const { hours, minutes } = this.getTime();
     this.inputTimeFrom = `${hours}:${minutes}`;
     this.inputTimeTo = `${hours}:${minutes}`;
   }
@@ -32,6 +38,9 @@ export class TodoComponent implements OnInit {
   addTodo() {
     if (this.inputTodo === '') {
       this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 2000);
     } else {
       this.error = false;
       this.todos.push({
@@ -42,12 +51,10 @@ export class TodoComponent implements OnInit {
         timeTo: this.inputTimeTo,
       });
       this.inputTodo = '';
-      const currentTime = new Date();
-      const hours = currentTime.getHours().toString().padStart(2, '0');
-      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+      const { hours, minutes } = this.getTime();
       this.inputTimeFrom = `${hours}:${minutes}`;
       this.inputTimeTo = `${hours}:${minutes}`;
-      this.saveTodos();
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     }
   }
 
@@ -56,19 +63,24 @@ export class TodoComponent implements OnInit {
       if (i == id) v.completed = !v.completed;
       return v;
     });
-    this.saveTodos();
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   deleteTodo(id: number) {
     this.todos = this.todos.filter((v, i) => i !== id);
-    this.saveTodos();
-  }
-
-  saveTodos(): void {
     localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   deleteAll() {
+    if (this.todos.length > 0) {
+      this.confirmDeleteAll = true;
+    } else {
+      null;
+    }
+  }
+
+  deleteEverything() {
+    this.confirmDeleteAll = false;
     localStorage.removeItem('todos');
     this.todos = [];
   }
