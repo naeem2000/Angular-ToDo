@@ -7,10 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "styles": [
-            "src/app/app.component.scss",
-            "./node_modules/aos/dist/aos.css"
-          ]
+          "style": "scss"
         }
       },
       "root": "",
