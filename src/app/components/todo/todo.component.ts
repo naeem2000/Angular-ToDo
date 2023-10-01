@@ -16,6 +16,12 @@ export class TodoComponent implements OnInit {
 
   constructor() {}
 
+  timer(value: any) {
+    setTimeout(() => {
+      value;
+    }, 2000);
+  }
+
   getTime() {
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
@@ -38,9 +44,7 @@ export class TodoComponent implements OnInit {
   addTodo() {
     if (this.inputTodo === '') {
       this.error = true;
-      setTimeout(() => {
-        this.error = false;
-      }, 2000);
+      this.timer((this.error = false));
     } else {
       this.error = false;
       this.todos.push({
