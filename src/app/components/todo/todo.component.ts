@@ -9,10 +9,10 @@ import { ToDo } from 'src/app/types/todo';
 export class TodoComponent implements OnInit {
   todos!: ToDo[];
   inputTodo: string = '';
-  inputTimeFrom: string = '';
-  inputTimeTo: string = '';
-  confirmDeleteAll: boolean = false;
   error: boolean = false;
+  inputTimeTo: string = '';
+  inputTimeFrom: string = '';
+  confirmDeleteAll: boolean = false;
 
   constructor() {}
 
@@ -74,8 +74,6 @@ export class TodoComponent implements OnInit {
   deleteAll() {
     if (this.todos.length > 0) {
       this.confirmDeleteAll = true;
-    } else {
-      null;
     }
   }
 
