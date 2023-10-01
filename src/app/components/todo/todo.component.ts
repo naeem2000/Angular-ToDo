@@ -7,12 +7,22 @@ import { ToDo } from 'src/app/types/todo';
   styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
+  //ToDo
   todos!: ToDo[];
+
+  //Inputs
   inputTodo: string = '';
-  inputTimeFrom: string = '';
   inputTimeTo: string = '';
-  confirmDeleteAll: boolean = false;
+  inputTimeFrom: string = '';
+  inputDescription: string = '';
+
+  //Errors
   error: boolean = false;
+  descError: boolean = false;
+
+  //Misc
+  gridView: boolean = false;
+  confirmDeleteAll: boolean = false;
 
   constructor() {}
 
@@ -41,16 +51,25 @@ export class TodoComponent implements OnInit {
       setTimeout(() => {
         this.error = false;
       }, 2000);
+    }
+    if (this.inputDescription === '') {
+      this.descError = true;
+      setTimeout(() => {
+        this.descError = false;
+      }, 2000);
     } else {
       this.error = false;
+      this.descError = false;
       this.todos.push({
         id: this.todos.length + 1,
-        content: this.inputTodo,
+        title: this.inputTodo,
+        description: this.inputDescription,
         completed: false,
         timeFrom: this.inputTimeFrom,
         timeTo: this.inputTimeTo,
       });
       this.inputTodo = '';
+      this.inputDescription = '';
       const { hours, minutes } = this.getTime();
       this.inputTimeFrom = `${hours}:${minutes}`;
       this.inputTimeTo = `${hours}:${minutes}`;
@@ -74,8 +93,6 @@ export class TodoComponent implements OnInit {
   deleteAll() {
     if (this.todos.length > 0) {
       this.confirmDeleteAll = true;
-    } else {
-      null;
     }
   }
 
