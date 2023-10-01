@@ -1,6 +1,7 @@
 export class ToDo {
   id!: number;
-  content!: string;
+  title!: string;
+  description!: string;
   completed!: boolean;
   timeFrom!: string;
   timeTo!: string;
