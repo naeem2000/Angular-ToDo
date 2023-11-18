@@ -1,3 +1,4 @@
+import { ScrollTopComponent } from './components/scroll-top/scroll-top.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -6,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [AppComponent, TodoComponent],
+  declarations: [AppComponent, TodoComponent, ScrollTopComponent],
   imports: [
     FormsModule,
     BrowserModule,

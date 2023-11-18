@@ -23,6 +23,7 @@ export class TodoComponent implements OnInit {
   //Misc
   gridView: boolean = false;
   confirmDeleteAll: boolean = false;
+  windowScrolled = false;
 
   constructor() {}
 
@@ -43,6 +44,10 @@ export class TodoComponent implements OnInit {
     const { hours, minutes } = this.getTime();
     this.inputTimeFrom = `${hours}:${minutes}`;
     this.inputTimeTo = `${hours}:${minutes}`;
+
+    window.addEventListener('scroll', () => {
+      this.windowScrolled = window.pageYOffset !== 0;
+    });
   }
 
   addTodo() {
@@ -100,5 +105,9 @@ export class TodoComponent implements OnInit {
     this.confirmDeleteAll = false;
     localStorage.removeItem('todos');
     this.todos = [];
+  }
+
+  scrollToTop(): void {
+    window.scrollTo(0, 0);
   }
 }

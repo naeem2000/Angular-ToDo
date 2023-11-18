@@ -1,4 +1,4 @@
-<div data-aos="fade-up" class="app">
+<div class="app">
   <form (submit)="addTodo()">
     <div class="fields">
       <div class="todo-input-container">
@@ -9,28 +9,35 @@
             Todo has to have a title...
           </p>
         </div>
+
         <div>
           <textarea [(ngModel)]="inputDescription" name="description" placeholder="Enter Description..."
             class="{{ this.error ? 'errorInput' : '' }}"></textarea>
           <p class="error-text" *ngIf="this.descError">Todo has to have a description...</p>
         </div>
+
       </div>
+
       <div class="input-side">
         <input [(ngModel)]="inputTimeFrom" type="time" name="time-input" min="00:00:00" max="24:00:00" />
         <img src="../../../assets/images/right.svg" alt="Arrow Right Time" />
         <input [(ngModel)]="inputTimeTo" type="time" name="time-input" min="00:00:00" max="24:00:00" />
       </div>
     </div>
+
     <div *ngIf="this.confirmDeleteAll">
       <p>delete all ?</p>
       <input type="button" value="yes" (click)="deleteEverything()" />
       <input type="button" value="no" (click)="this.confirmDeleteAll = false" />
     </div>
+
     <div class="submit">
       <input type="submit" value="Add Todo" class="todo-submit" />
       <input *ngIf="todos.length > 1" type="button" (click)="deleteAll()" value="delete all" class="todo-submit" />
     </div>
+
   </form>
+
   <div class="parent">
     <div (click)="toggleDone(i)" *ngFor="let todo of todos; let i = index"
       class="todo {{ todo.completed ? 'done' : '' }}">
@@ -39,11 +46,14 @@
         <p class="title">{{ todo.title }}</p>
         <p class="description">{{ todo.description }}</p>
       </div>
+
       <div class="times">
         {{ todo.timeFrom }}
         <img src="../../../assets/images/right.svg" alt="Arrow Right Time" />
         {{ todo.timeTo }}
       </div>
+
       <button class="delete" (click)="deleteTodo(i)">Remove</button>
     </div>
+    <app-scroll-top></app-scroll-top>
   </div>
