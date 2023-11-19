@@ -1,2 +1,28 @@
-.app { margin: 0;
-padding: 0}
+.scroll-to-top {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: all .5s ease;
+
+        img {
+            transform: rotate(-90deg);
+            width: 50px;
+        }
+
+        &:hover {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+.show-scrollTop {
+    opacity: 1;
+    transition: all .2s ease-in-out;
+}

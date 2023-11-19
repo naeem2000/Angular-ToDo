@@ -1,1 +1,5 @@
-<button (click)="scrollToTop()">top</button>
+<div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
+    <button (click)="scrollToTop()">
+        <img src="../../../assets/images/right.svg" alt="arrow up">
+    </button>
+</div>
